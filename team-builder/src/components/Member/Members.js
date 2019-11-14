@@ -2,17 +2,25 @@ import React, { useState, useEffect } from "react";
 
 import Member from "./Member";
 
-export default function Members({ members }) {
-  const [renderList, setRenderList] = useState();
+export default function Members({ members, onUpdate, onRemove }) {
+  const [render, setRender] = useState();
 
   useEffect(
     _ => {
-      setRenderList(
-        members.map(member => <Member key={member.id} member={member} />)
+      setRender(
+        members.map(member => (
+          <Member
+            key={member.id}
+            member={member}
+            members={members}
+            onUpdate={onUpdate}
+            onRemove={onRemove}
+          />
+        ))
       );
     },
     [members]
   );
 
-  return <div>{renderList}</div>;
+  return <div>{render}</div>;
 }
